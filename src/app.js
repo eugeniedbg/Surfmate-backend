@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const userRoutes = require('./routes/user');
-const spotRoutes = require('./routes/spot');
-const creneauRoutes = require('./routes/creneau');
-const publicationRoutes = require('./routes/publication');
-const avisSpotRoutes = require('./routes/avisspot');
+const userRoutes = require('../routes/user');
+const spotRoutes = require('../routes/spot');
+const creneauRoutes = require('../routes/creneau');
+const publicationRoutes = require('../routes/publication');
+const avisSpotRoutes = require('../routes/avisspot');
 
 mongoose.connect('mongodb+srv://eugenie:1234@cluster0.k2kypnq.mongodb.net/?retryWrites=true&w=majority',
 { useNewUrlParser: true,
