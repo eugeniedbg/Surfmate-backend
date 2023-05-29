@@ -30,13 +30,15 @@ exports.login = (req, res, next) => {
                     if (!valid) {
                         return res.status(401).json({ message: 'Identifiant ou mot de passe incorrect' });
                     }
-                    const expirationDate = new Date(Date.now() + 3600000); // 1 heure en millisecondes
+                    const expirationDate = new Date(Date.now() + 120000); // 2 minutes en millisecondes
+                    // const expirationDate = new Date(Date.now() + 3600000); // 1 heure en millisecondes
                     res.status(200).json({
                         userId: user._id,
                         token: jwt.sign(
                             { userId: user._id },
                             'RANDOM_TOKEN_SECRET',
-                            { expiresIn: '1h' } //mettre 15min
+                            { expiresIn: '2m' }                          
+                            // { expiresIn: '1h' }
                         ),
                         expirationDate: expirationDate.toISOString() // Convertit la date en format ISO pour le stockage dans localStorage
                     });
