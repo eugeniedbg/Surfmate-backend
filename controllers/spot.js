@@ -125,6 +125,9 @@ exports.getAllSpot = (req, res, next) => {
     .populate('avis') // inclure tous les avis
     .select('nom ville pays GPS noteMoyenne') // inclure uniquement le nom, la ville, le pays, les coordonnées GPS et la note moyenne
     .then((spots) => {
+      spots.forEach((spot) => {
+        updateSpotNoteMoyenne(spot._id); // Appel de la fonction pour mettre à jour la note moyenne du spot
+      });
       res.status(200).json(spots);
     })
     .catch((error) => {
@@ -133,6 +136,26 @@ exports.getAllSpot = (req, res, next) => {
       });
     });
 };
+
+function updateSpotNoteMoyenne(spotId) {
+  AvisSpot.aggregate([
+    { $match: { spotId: spotId } },
+    { $group: { _id: null, moyenne: { $avg: "$noteLieu" } } }
+  ]).then((result) => {
+    const newNoteMoyenne = result.length ? result[0].moyenne : null;
+    Spot.findByIdAndUpdate(spotId, { noteMoyenne: newNoteMoyenne }, { new: true }).then((updatedSpot) => {
+      console.log(`Updated noteMoyenne for spotId: ${spotId}`);
+      console.log("Updated spot:", updatedSpot);
+    }).catch((error) => {
+      console.log(`Error updating noteMoyenne for spotId: ${spotId}`);
+      console.error(error);
+    });
+  }).catch((error) => {
+    console.log(`Error calculating noteMoyenne for spotId: ${spotId}`);
+    console.error(error);
+  });
+}
+
   
 
 exports.getSpotByVille = (req, res, next) => {

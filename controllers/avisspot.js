@@ -86,21 +86,7 @@ exports.deleteAvisSpot = (req, res, next) => {
     );
 };
 
-/*exports.getOneAvisSpot = (req, res, next) => {
-    AvisSpot.findOne({
-      _id: req.params.id
-    }).then(
-      (avisSpot) => {
-        res.status(200).json(avisSpot);
-      }
-    ).catch(
-      (error) => {
-        res.status(404).json({
-          error: error
-        });
-      }
-    );
-};*/
+
 
 exports.getAllAvisSpot = (req, res, next) => {
   console.log(req.params.spot_id);
