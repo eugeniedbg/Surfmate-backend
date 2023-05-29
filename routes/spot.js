@@ -4,9 +4,9 @@ const router = express.Router();
 
 const spotCtrl = require('../controllers/spot');
 
-router.post('/', spotCtrl.createSpot);
-router.put('/:id', spotCtrl.modifySpot);
-router.delete('/:id', spotCtrl.deleteSpot);
+router.post('/', auth, spotCtrl.createSpot);
+router.put('/:id', auth, spotCtrl.modifySpot);
+router.delete('/:id', auth, spotCtrl.deleteSpot);
 router.get('/:id', spotCtrl.getOneSpot);
 router.get('/', spotCtrl.getAllSpot);
 router.get('/:ville', spotCtrl.getSpotByVille);
