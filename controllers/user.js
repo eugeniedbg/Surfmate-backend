@@ -36,6 +36,7 @@ exports.login = (req, res, next) => {
                     const expirationDate = new Date(Date.now() + 3600000); // 1 heure en millisecondes
                     res.status(200).json({
                         userId: user._id,
+                        isAdmin: user.isAdmin,
                         token: jwt.sign(
                             { userId: user._id },
                             'RANDOM_TOKEN_SECRET',
